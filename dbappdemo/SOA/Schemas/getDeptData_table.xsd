@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/getDeptData" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/getDeptData" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="DeptCollection" type="DeptCollection"/>
+   <xs:complexType name="DeptCollection">
+      <xs:sequence>
+         <xs:element name="Dept" type="Dept" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Dept">
+      <xs:sequence>
+         <xs:element name="deptno" type="xs:int"/>
+         <xs:element name="dname" type="string14" minOccurs="0" nillable="true"/>
+         <xs:element name="loc" type="string13" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="getDeptDataSelect_pDeptNoInputParameters" type="getDeptDataSelect_pDeptNo"/>
+   <xs:complexType name="getDeptDataSelect_pDeptNo">
+      <xs:sequence>
+         <xs:element name="pDeptNo" type="xs:int" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="string14">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="14"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="string13">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="13"/>
+      </xs:restriction>
+   </xs:simpleType>
+</xs:schema>

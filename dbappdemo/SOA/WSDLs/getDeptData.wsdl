@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="getDeptData"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOAApp1/dbappdemo/getDeptData"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOAApp1/dbappdemo/getDeptData"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/getDeptData"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="getDeptData_plt" >
+    <plt:role name="getDeptData_role" >
+      <plt:portType name="tns:getDeptData_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/getDeptData" schemaLocation="../Schemas/getDeptData_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="getDeptDataSelect_inputParameters">
+        <wsdl:part name="getDeptDataSelect_inputParameters" element="top:getDeptDataSelect_pDeptNoInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="DeptCollection_msg">
+        <wsdl:part name="DeptCollection" element="top:DeptCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="getDeptData_ptt">
+        <wsdl:operation name="getDeptDataSelect">
+            <wsdl:input message="tns:getDeptDataSelect_inputParameters"/>
+            <wsdl:output message="tns:DeptCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

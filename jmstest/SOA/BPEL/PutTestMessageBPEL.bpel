@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Jan 12 12:49:43 IST 2019
+  Author:  Hp
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="PutTestMessageBPEL"
+               targetNamespace="http://xmlns.oracle.com/SOAApp1/jmstest/PutTestMessageBPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOAApp1/jmstest/PutTestMessageBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SOAApp1/jmstest/jmsReference"
+         xmlns:ns2="http://www.example.org">
+
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOAApp1/jmstest/PutTestMessageBPEL" location="../WSDLs/PutTestMessageBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="puttestmessagebpel_client" partnerLinkType="client:PutTestMessageBPEL" myRole="PutTestMessageBPELProvider"/>
+    <partnerLink name="jmsReference" partnerLinkType="ns1:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:PutTestMessageBPELRequestMessage"/>
+    <variable name="Invoke1JMS_Produce_Message_InputVariable" messageType="ns1:Produce_Message_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in PutTestMessageBPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="puttestmessagebpel_client" portType="client:PutTestMessageBPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/client:input</from>
+        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$Invoke1JMS_Produce_Message_InputVariable.body/ns2:input</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1JMS" partnerLink="jmsReference" portType="ns1:Produce_Message_ptt"
+            operation="Produce_Message" inputVariable="Invoke1JMS_Produce_Message_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>

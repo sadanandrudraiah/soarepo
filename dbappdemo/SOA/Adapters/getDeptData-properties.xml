@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="DEPT.DNAME:db_column_not_null">false</entry>
+   <entry key="DEPT.LOC:db_column_not_null">false</entry>
+   <entry key="DEPT:db_column_2">LOC</entry>
+   <entry key="DEPT.LOC:db_column_type">VARCHAR2</entry>
+   <entry key="DEPT:db_column_1">DNAME</entry>
+   <entry key="DEPT:db_column_0">DEPTNO</entry>
+   <entry key="DEPT.DEPTNO:db_column_not_null">true</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="DEPT.LOC:db_column_size">13</entry>
+   <entry key="DEPT.DNAME:db_column_type">VARCHAR2</entry>
+   <entry key="DEPT.DEPTNO:db_column_type">NUMBER</entry>
+   <entry key="DEPT:db_table_type">TABLE</entry>
+   <entry key="root_descriptor_alias">DEPT</entry>
+   <entry key="DEPT.DEPTNO:db_column_scale">0</entry>
+   <entry key="DEPT.DEPTNO:db_column_precision">2</entry>
+   <entry key="DEPT.DNAME:db_column_size">14</entry>
+</properties>
